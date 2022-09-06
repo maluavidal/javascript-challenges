@@ -9,8 +9,16 @@
 const formatedDate = new Date();
 
 function returnData(date){
-    if('DD')
+    if( date === 'DD') {
+        return formatedDate.toLocaleDateString('pt-BR', {day: '2-digit'});
+    }   else if( date === 'DD/MM') {
+        return formatedDate.toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'});
+    }   else if( date === 'DD/MM/YYYY') {
+        return formatedDate.toLocaleDateString('pt-BR', {day: '2-digit', month:'2-digit', year: 'numeric'});
+    }   
 }
+    console.log(returnData('DD/MM/YYYY'));
+
 
 
 

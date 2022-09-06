@@ -11,3 +11,13 @@
 //     <li>Página 3</li>
 //     <li>Página 4</li>
     
+const pagination = (totalItems, itemsPerPage) => {
+    const ulElement = document.getElementById("pagination");
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    for (let index = 0; index < totalPages; index++) {
+        ulElement.innerHTML += `<li>Página ${index + 1} </li>`;
+    }
+};
+
+pagination(15, 2);

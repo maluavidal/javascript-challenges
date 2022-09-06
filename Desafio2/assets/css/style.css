@@ -1,0 +1,46 @@
+.container {
+    box-sizing: border-box;
+    display: flex;
+    color: black;
+    justify-content: center;
+}
+
+.semaphoreFormat {
+    box-sizing: border-box;
+    width: 250px;
+    height: 550px;
+    color: whitesmoke;
+    border: 20px solid black;
+    border-radius: 15px;
+    padding: 25px 0 25px 0;
+    background-color: rgb(209, 209, 209);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.redLight {
+    height: 125px;
+    width: 125px;
+    background-color: rgb(129, 0, 0);
+    border-radius: 125px;
+    border: 10px solid black;
+}
+
+.yellowLight {
+    height: 125px;
+    width: 125px;
+    background-color: rgb(128, 128, 0);
+    border-radius: 125px;
+    border: 10px solid black;
+}
+
+.greenLight {
+    height: 125px;
+    width: 125px;
+    background-color: rgb(0, 72, 0);
+    border-radius: 125px;
+    border: 10px solid black;
+}
