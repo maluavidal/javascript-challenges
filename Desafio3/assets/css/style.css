@@ -1,0 +1,35 @@
+.lampOn {
+    background: url('../img/lampOn.jpeg');
+    width: 170px;
+    height: 220px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lampOff {
+    background: url('../img/lampOff.jpeg');
+    width: 170px;
+    height: 220px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.brokenLamp {
+    background: url('../img/brokenLamp.jpeg');
+    width: 170px;
+    height: 220px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container {
+    background: white;
+    width: 170px;
+    height: 220px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
