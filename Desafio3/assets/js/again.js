@@ -5,7 +5,6 @@ let lampType = 'off';
 let seconds;
 let timeout;
 let canProceed = true;
-let interval15Sec; 
 
 function turnLampOn() {
     counter++;
@@ -31,19 +30,20 @@ function breakLamp() {
 function timeToBreak() {
     timeout = 10;
         beforeBreaking = setInterval(() => {
-            if (timeout <= 5 && lampType === 'on') {
-                breakLamp();
+            if (timeout > 5 && lampType === 'on') {
+                setTimeout(() => {
+                    breakLamp();
+                }, 10000);
                 clearInterval(timeTurnedOff);
                 return;
             }
         
-            if (timeout > 5 && lampType === 'off') {
+            if (timeout <= 5 && lampType === 'off') {
                 clearInterval(beforeBreaking);
                 turnLampOn();
                 return;
                 }
             timeout--;
-            // console.log(timeout);
         }, 1000); 
         return
 }
@@ -53,9 +53,7 @@ function timer() {
 
     timeTurnedOff = setInterval(() => {
         if (counter === 5 && !canProceed) {
-            setTimeout(() => {
-                breakLamp();
-            }, 10000);
+            breakLamp();
             clearInterval(timeTurnedOff);
             return;
         }
@@ -63,13 +61,10 @@ function timer() {
         if (lampType === 'on' && seconds === 15) {
             clearInterval(timeTurnedOff);
             turnLampOff();
+            return;
         }
-
         seconds++;
-
-        console.log(seconds);
     }, 1000);
-    
 }
 
 function blocked() {
@@ -84,18 +79,11 @@ function blocked() {
 document.addEventListener('mousemove', (lamp) => {
     const el = lamp.target;
 
-    // console.log(el.classList)
-
     if (lampType === 'broken') return;
 
-    // nao ta com o mouse na lampada
     if (!el.classList.contains('lampada')) {
         return;
     }
-
-    // if (interval15Sec) {
-    //     clearTimeout(interval15Sec);
-    // }
 
     if (el.classList.contains('lampOn')) {
         seconds = 0;
@@ -110,6 +98,5 @@ document.addEventListener('mousemove', (lamp) => {
         turnLampOn();
         timer();
     }
-
 })
 
