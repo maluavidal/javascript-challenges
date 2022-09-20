@@ -1,73 +1,111 @@
-// const green = document.querySelector('.greenLight');
-// const yellow = document.querySelector('.yellowLight');
-// const red = document.querySelector('.redLight');
-// const btn = document.querySelector('.closeBtn');
+const greenLight = document.querySelector('.greenLight');
+const yellowLight = document.querySelector('.yellowLight');
+const redLight = document.querySelector('.redLight');
+const clock = document.querySelector('.clock');
+const btn = document.querySelector('.closeBtn');
+let actualColor;
+let closeBtnIsBlocked = false;
 
-// const init = () => { 
-// greenTest();
-// };
+function pressBtn() {
+    if (actualColor !== 'green' || closeBtnIsBlocked) {
+        return;
+    }
 
-// const greenTest = () => {
-//     green.classList.add('openGreen');
+    btn.classList.remove('closeBtn');
+    btn.classList.add('pressBtn');
 
-//     setTimeout(() => {
-//         green.classList.remove('openGreen');
-//         yellowTest()
-//     }, 7000);
-// };
+    resetButton();
+    setTimeout(() => {
+        yellow();
+    }, 3000);
+};
 
-// const yellowTest = () => {
-//     yellow.classList.add('openYellow');
+const resetButton = () => {
+    closeBtnIsBlocked = true;
+    setTimeout(() => {
+        btn.classList.remove('pressBtn')
+        btn.classList.add('closeBtn');
+        closeBtnIsBlocked = false;
+    }, 60000);
+}
 
-//     setTimeout(() => {
-//         yellow.classList.remove('openYellow');
-//         redTeste();
-//     }, 3000);
-// };
+function yellow() {
+    actualColor = 'yellow';
 
-// const redTeste = () => {
-//     red.classList.add('openRed');
+    clearInterval(greenT);
 
-//     setTimeout(() => {
-//         red.classList.remove('openRed');
-//         greenTest();
-//     }, 10000);
-// }
+    btn.classList.remove('closeBtn');
+    btn.classList.add('pressBtn');
 
-// function pressBtn() {
-//         btn.classList.add('pressBtn');
-//         let timeout = 0;
-//         const time = setInterval(() => {
-//             console.log(timeout);
-//             if(timeout === 60){
-//                 btn.classList.remove('pressBtn');
-//                 clearInterval(time);
-//             }    
-//             timeout++;
-//         }, 1000);
-//     };
+    yellowLight.classList.add('openYellow');
 
-// init();
+    if (yellowLight.classList.contains('openYellow')){
+        greenLight.classList.remove('openGreen');
+    }
 
-// function semaphore(color, seconds){
+    clock.innerHTML = ''
+
+    setTimeout(() => {
+        yellowLight.classList.remove('openYellow');
+        red();
+    }, 3000);
+}
+
+let greenT;
+
+function green(settedTimeout = 7000) {
+    actualColor = 'green';
+
+    btn.classList.remove('pressBtn');
+    btn.classList.add('closeBtn');
+
+    let timeGreen = settedTimeout / 1000;
+    clock.innerHTML = timeGreen;
+    if (greenT) {
+        clearInterval(greenT)     
+    }
+
     
+    greenLight.classList.add('openGreen');
+    greenT = setInterval(() => {
+        timeGreen--;
+        clock.innerHTML = timeGreen;
+        console.log(timeGreen);
+        if (timeGreen === 0) {
+            greenLight.classList.remove('openGreen');
+            yellow();
+            clearInterval(greenT)
+        }
+    }, 1000);
+}
 
-//     let s = seconds;
-//     const timer = setInterval(() => {
-//         clock = document.querySelector('.clock');
-//         clock.innerHTML = s;
-//         console.log(s);
-//         s--;
-//         if(color === green){
-//             s = 10;
-//             setTimeout(() => {
-//                 greenLight.classList.remove('openGreen');
-//                 yellowlight.classList.add('openYellow');
-//             }, 8000);
-//         }
-//     }, 1000)
 
-        
-// }
+let redT;
 
-// semaphore();
+function red(settedTimeout = 15000) {
+    actualColor = 'red';
+
+    let timeRed = settedTimeout / 1000;
+    clock.innerHTML = timeRed;
+
+    if (redT) {
+        clearInterval(redT);
+    }
+
+    redLight.classList.add('openRed');
+    redT = setInterval(() => {
+        timeRed--;
+        clock.innerHTML = timeRed;
+        if(timeRed === 0) {
+        redLight.classList.remove('openRed');
+        green();
+        clearInterval(redT);
+        }
+    }, 1000);
+}
+
+const init = () => {
+    green();
+}
+
+init();
