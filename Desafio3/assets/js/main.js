@@ -14,7 +14,6 @@ function turnLampOn() {
 }
 
 function turnLampOff() {
-    seconds = 0;
     lampType = 'off';
     lamp.classList.remove('lampOn');
     lamp.classList.add('lampOff');
@@ -25,6 +24,14 @@ function breakLamp() {
     lampType = 'broken';
     lamp.classList.remove('lampOn');
     lamp.classList.add('brokenLamp');
+}
+
+function blocked() {
+    canProceed = false;
+
+    setTimeout(() => {
+        canProceed = true;
+    }, 5000);
 }
 
 function timeToBreak() {
@@ -48,33 +55,26 @@ function timeToBreak() {
     return
 }
 
+
 function timer() {
     seconds = 0;
 
     timeTurnedOff = setInterval(() => {
+        if (lampType === 'on' && seconds === 15) {
+            clearInterval(timeTurnedOff);
+            turnLampOff();
+            return;
+        }
+
         if (counter === 5 && !canProceed) {
             breakLamp();
             clearInterval(timeTurnedOff);
             return;
         }
 
-        if (lampType === 'on' && seconds === 15) {
-            clearInterval(timeTurnedOff);
-            turnLampOff();
-            return;
-        }
         seconds++;
     }, 1000);
 }
-
-function blocked() {
-    canProceed = false;
-
-    setTimeout(() => {
-        canProceed = true;
-    }, 5000);
-}
-
 
 document.addEventListener('mousemove', (lamp) => {
     const el = lamp.target;
@@ -91,11 +91,6 @@ document.addEventListener('mousemove', (lamp) => {
     }
 
     if (!el.classList.contains('lampada')) {
-        return;
-    }
-
-    if (el.classList.contains('lampOn')) {
-        seconds = 0;
         return;
     }
 })
