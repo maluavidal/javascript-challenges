@@ -2,7 +2,6 @@ const lamp = document.querySelector('#lamp');
 
 let counter = 0;
 let lampType = 'off';
-let seconds;
 let timeout;
 let canProceed = true;
 
@@ -52,12 +51,11 @@ function timeToBreak() {
         }
         timeout--;
     }, 1000);
-    return
 }
 
 
 function timer() {
-    seconds = 0;
+    let seconds = 0;
 
     timeTurnedOff = setInterval(() => {
         if (lampType === 'on' && seconds === 15) {
@@ -79,19 +77,17 @@ function timer() {
 document.addEventListener('mousemove', (lamp) => {
     const el = lamp.target;
 
-    if (lampType === 'broken') return;
+    const isLampOff = el.classList.contains('lampOff');
 
-    if (el.classList.contains('lampOff')) {
-        if (!canProceed) {
-            timeToBreak();
-        }
-
-        turnLampOn();
-        timer();
-    }
-
-    if (!el.classList.contains('lampada')) {
+    if (lampType === 'broken' || !isLampOff) {
         return;
     }
+
+    if (!canProceed) {
+        timeToBreak();
+    }
+
+    turnLampOn();
+    timer();
 })
 

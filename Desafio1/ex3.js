@@ -3,7 +3,7 @@
 // DIA/MÊS/ANO
 // DIA/MÊS/ANO HORA:MINUTO
 
-const data = new Date('2022-06-07T01:01:06.336Z');
+const data = new Date('2022-06-12T01:01:06.336Z');
 
 function addZero(num) {
     return num >= 10 ? num : `0${num}`;
